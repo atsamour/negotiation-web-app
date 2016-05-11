@@ -1,6 +1,6 @@
 package com.cortez.samples.javaee7angular.pagination;
 
-import com.cortez.samples.javaee7angular.data.Person;
+import com.cortez.samples.javaee7angular.data.Issue;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -21,7 +21,7 @@ public class PaginatedListWrapper implements Serializable {
     private String sortFields;
     private String sortDirections;
     @XmlElement
-    private List<Person> list;
+    private List<Issue> list;
 
     public Integer getCurrentPage() {
         return currentPage;
@@ -67,7 +67,7 @@ public class PaginatedListWrapper implements Serializable {
         return list;
     }
 
-    public void setList(List<Person> list) {
+    public void setList(List<Issue> list) {
         this.list = list;
     }
 }

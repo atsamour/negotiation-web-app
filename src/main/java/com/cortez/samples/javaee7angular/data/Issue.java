@@ -1,6 +1,7 @@
 package com.cortez.samples.javaee7angular.data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.*;
 
 /**
@@ -9,8 +10,8 @@ import javax.persistence.*;
  * @author Roberto Cortez
  */
 @Entity
-@Table(name = "PERSON")
-public class Person implements Serializable {
+@Table(name = "ISSUE")
+public class Issue implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     //@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -20,11 +21,11 @@ public class Person implements Serializable {
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "DESCRIPTION")
-    private String description;
+    @Column(name = "P1RATE", precision = 7, scale = 5)
+    private BigDecimal p1Rate;
 
-    @Column(name = "IMAGEURL")
-    private String imageUrl;
+    @Column(name = "P2RATE", precision = 7, scale = 5)
+    private BigDecimal p2Rate;
 
     public Long getId() {
         return id;
@@ -42,31 +43,22 @@ public class Person implements Serializable {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public BigDecimal getP1Rate() {
+        return p1Rate;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public BigDecimal getP2Rate() {
+        return p2Rate;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public void setP1Rate(BigDecimal p1Rate) {
+        this.p1Rate = p1Rate;
     }
 
-    public void setImageUrl(String link) {
-        this.imageUrl = link;
+    public void setP2Rate(BigDecimal p2Rate) {
+        this.p2Rate = p2Rate;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) { return true; }
-        if (o == null || getClass() != o.getClass()) { return false; }
-
-        Person person = (Person) o;
-
-        return id.equals(person.id);
-    }
+    
 
     @Override
     public int hashCode() {

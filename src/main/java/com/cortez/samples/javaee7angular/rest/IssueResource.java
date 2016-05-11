@@ -1,6 +1,6 @@
 package com.cortez.samples.javaee7angular.rest;
 
-import com.cortez.samples.javaee7angular.data.Person;
+import com.cortez.samples.javaee7angular.data.Issue;
 import com.cortez.samples.javaee7angular.pagination.PaginatedListWrapper;
 
 import javax.ejb.Stateless;
@@ -19,31 +19,31 @@ import java.util.List;
  */
 @Stateless
 @ApplicationPath("/resources")
-@Path("persons")
+@Path("issues")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class PersonResource extends Application {
+public class IssueResource extends Application {
     @PersistenceContext
     private EntityManager entityManager;
 
-    private Integer countPersons() {
-        Query query = entityManager.createQuery("SELECT COUNT(p.id) FROM Person p");
+    private Integer countIssues() {
+        Query query = entityManager.createQuery("SELECT COUNT(p.id) FROM Issue p");
         return ((Long) query.getSingleResult()).intValue();
     }
 
     @SuppressWarnings("unchecked")
-    private List<Person> findPersons(int startPosition, int maxResults, String sortFields, String sortDirections) {
+    private List<Issue> findIssue(int startPosition, int maxResults, String sortFields, String sortDirections) {
         Query query =
-                entityManager.createQuery("SELECT p FROM Person p ORDER BY p." + sortFields + " " + sortDirections);
+                entityManager.createQuery("SELECT p FROM Issue p ORDER BY p." + sortFields + " " + sortDirections);
         query.setFirstResult(startPosition);
         query.setMaxResults(maxResults);
         return query.getResultList();
     }
 
-    private PaginatedListWrapper findPersons(PaginatedListWrapper wrapper) {
-        wrapper.setTotalResults(countPersons());
+    private PaginatedListWrapper findIssues(PaginatedListWrapper wrapper) {
+        wrapper.setTotalResults(countIssues());
         int start = (wrapper.getCurrentPage() - 1) * wrapper.getPageSize();
-        wrapper.setList(findPersons(start,
+        wrapper.setList(findIssue(start,
                                     wrapper.getPageSize(),
                                     wrapper.getSortFields(),
                                     wrapper.getSortDirections()));
@@ -52,7 +52,7 @@ public class PersonResource extends Application {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public PaginatedListWrapper listPersons(@DefaultValue("1")
+    public PaginatedListWrapper listIssues(@DefaultValue("1")
                                             @QueryParam("page")
                                             Integer page,
                                             @DefaultValue("id")
@@ -66,37 +66,37 @@ public class PersonResource extends Application {
         paginatedListWrapper.setSortFields(sortFields);
         paginatedListWrapper.setSortDirections(sortDirections);
         paginatedListWrapper.setPageSize(10);
-        return findPersons(paginatedListWrapper);
+        return findIssues(paginatedListWrapper);
     }
 
     @GET
     @Path("{id}")
-    public Person getPerson(@PathParam("id") Long id) {
-        return entityManager.find(Person.class, id);
+    public Issue getIssue(@PathParam("id") Long id) {
+        return entityManager.find(Issue.class, id);
     }
 
     @POST
-    public Person savePerson(Person person) {
-        if (person.getId() == null) {
-            Person personToSave = new Person();
-            personToSave.setName(person.getName());
-            personToSave.setDescription(person.getDescription());
-            personToSave.setImageUrl(person.getImageUrl());
-            entityManager.persist(person);
+    public Issue saveIssue(Issue issue) {
+        if (issue.getId() == null) {
+            Issue issueToSave = new Issue();
+            issueToSave.setName(issue.getName());
+            issueToSave.setP1Rate(issue.getP1Rate());
+            issueToSave.setP2Rate(issue.getP2Rate());
+            entityManager.persist(issue);
         } else {
-            Person personToUpdate = getPerson(person.getId());
-            personToUpdate.setName(person.getName());
-            personToUpdate.setDescription(person.getDescription());
-            personToUpdate.setImageUrl(person.getImageUrl());
-            person = entityManager.merge(personToUpdate);
+            Issue issueToUpdate = getIssue(issue.getId());
+            issueToUpdate.setName(issue.getName());
+            issueToUpdate.setP1Rate(issue.getP1Rate());
+            issueToUpdate.setP2Rate(issue.getP2Rate());
+            issue = entityManager.merge(issueToUpdate);
         }
 
-        return person;
+        return issue;
     }
 
     @DELETE
     @Path("{id}")
-    public void deletePerson(@PathParam("id") Long id) {
-        entityManager.remove(getPerson(id));
+    public void deleteIssue(@PathParam("id") Long id) {
+        entityManager.remove(getIssue(id));
     }
 }
