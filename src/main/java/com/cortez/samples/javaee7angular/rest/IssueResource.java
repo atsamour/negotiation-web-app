@@ -79,13 +79,13 @@ public class IssueResource extends Application {
     public Issue saveIssue(Issue issue) {
         if (issue.getId() == null) {
             Issue issueToSave = new Issue();
-            issueToSave.setName(issue.getName());
+            issueToSave.setIssueNum(issue.getIssueNum());
             issueToSave.setP1Rate(issue.getP1Rate());
             issueToSave.setP2Rate(issue.getP2Rate());
             entityManager.persist(issue);
         } else {
             Issue issueToUpdate = getIssue(issue.getId());
-            issueToUpdate.setName(issue.getName());
+            issueToUpdate.setIssueNum(issue.getIssueNum());
             issueToUpdate.setP1Rate(issue.getP1Rate());
             issueToUpdate.setP2Rate(issue.getP2Rate());
             issue = entityManager.merge(issueToUpdate);

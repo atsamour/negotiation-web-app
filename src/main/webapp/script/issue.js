@@ -13,8 +13,9 @@ app.controller('issuesListController', function ($scope, $rootScope, issueServic
 
         columnDefs: [
             { field: 'id', displayName: 'Id' },
-            { field: 'p1Rate', displayName: 'p1Rate' },
-            { field: 'p2Rate', displayName: 'p2Rate' },
+            { field: 'issueNum', displayName: 'Issue Number' },
+            { field: 'p1Rate', displayName: 'Party 1 Rate' },
+            { field: 'p2Rate', displayName: 'Party 2 Rate' },
             { field: '', width: 30, cellTemplate: '<span class="glyphicon glyphicon-remove remove" ng-click="deleteRow(row)"></span>' }
         ],
 

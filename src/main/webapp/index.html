@@ -75,55 +75,55 @@
         <form name="issueForm" ng-submit="updateIssue()" novalidate>
 
             <!-- Display an error if the input is invalid and is dirty (only when someone changes the value) -->
-            <div class="form-group" ng-class="{'has-error' : issueForm.name.$invalid && issueForm.name.$dirty}">
-                <label for="name">Name:</label>
+            <div class="form-group" ng-class="{'has-error' : issueForm.issueNum.$invalid && issueForm.issueNum.$dirty}">
+                <label for="issueNum">Name:</label>
                 <!-- Display a check when the field is valid and was modified -->
-                <span ng-class="{'glyphicon glyphicon-ok' : issueForm.name.$valid && issueForm.name.$dirty}"></span>
+                <span ng-class="{'glyphicon glyphicon-ok' : issueForm.issueNum.$valid && issueForm.issueNum.$dirty}"></span>
 
-                <input id="name" name="name" type="text" class="form-control" maxlength="50"
-                       ng-model="issue.name"
+                <input id="issueNum" name="issueNum" type="text" class="form-control" maxlength="50"
+                       ng-model="issue.issueNum"
                        required ng-minlength="2" ng-maxlength="50"/>
 
                 <!-- Validation messages to be displayed on required, minlength and maxlength -->
-                <p class="help-block" ng-show="issueForm.name.$error.required">Add Name.</p>
-                <p class="help-block" ng-show="issueForm.name.$error.minlength">Name must be at least 2 characters long.</p>
-                <p class="help-block" ng-show="issueForm.name.$error.maxlength">Name cannot be longer than 50 characters.</p>
+                <p class="help-block" ng-show="issueForm.issueNum.$error.required">Add Name.</p>
+                <p class="help-block" ng-show="issueForm.issueNum.$error.minlength">Name must be at least 2 characters long.</p>
+                <p class="help-block" ng-show="issueForm.issueNum.$error.maxlength">Name cannot be longer than 50 characters.</p>
             </div>
 
             <!-- Display an error if the input is invalid and is dirty (only when someone changes the value) -->
             <div class="form-group" ng-class="{'has-error' : issueForm.description.$invalid && issueForm.description.$dirty}">
-                <label for="description">Description:</label>
+                <label for="p1Rate">p1Rate :</label>
                 <!-- Display a check when the field is valid and was modified -->
                 <span ng-class="{'glyphicon glyphicon-ok' : issueForm.description.$valid && issueForm.description.$dirty}"></span>
 
-                <input id="description" name="description" type="text" class="form-control" maxlength="100"
-                       ng-model="issue.description"
-                       required ng-minlength="5" ng-maxlength="100"/>
+                <input id="p1Rate" name="p1Rate" type="text" class="form-control" maxlength="100"
+                       ng-model="issue.p1Rate"
+                       required ng-minlength="1" ng-maxlength="100"/>
 
                 <!-- Validation messages to be displayed on required, minlength and maxlength -->
-                <p class="help-block" ng-show="issueForm.description.$error.required">Add Description.</p>
-                <p class="help-block" ng-show="issueForm.description.$error.minlength">Description must be at least 5 characters long.</p>
-                <p class="help-block" ng-show="issueForm.description.$error.maxlength">Description cannot be longer than 100 characters.</p>
+                <p class="help-block" ng-show="issueForm.p1Rate.$error.required">Add Description.</p>
+                <p class="help-block" ng-show="issueForm.p1Rate.$error.minlength">Description must be at least 1 characters long.</p>
+                <p class="help-block" ng-show="issueForm.p1Rate.$error.maxlength">Description cannot be longer than 100 characters.</p>
             </div>
 
             <!-- Display an error if the input is invalid and is dirty (only when someone changes the value) -->
-            <div class="form-group" ng-class="{'has-error' : issueForm.imageUrl.$invalid && issueForm.imageUrl.$dirty}">
-                <label for="imageUrl">Image URL:</label>
+            <div class="form-group" ng-class="{'has-error' : issueForm.p2Rate.$invalid && issueForm.p2Rate.$dirty}">
+                <label for="p2Rate">p2Rate:</label>
                 <!-- Display a check when the field is valid and was modified -->
-                <span ng-class="{'glyphicon glyphicon-ok' : issueForm.imageUrl.$valid && issueForm.imageUrl.$dirty}"></span>
+                <span ng-class="{'glyphicon glyphicon-ok' : issueForm.p2Rate.$valid && issueForm.p2Rate.$dirty}"></span>
 
-                <input id="imageUrl" name="imageUrl" type="url" class="form-control" maxlength="500"
-                       ng-model="issue.imageUrl"
+                <input id="p2Rate" name="p2Rate" type="text" class="form-control" maxlength="500"
+                       ng-model="issue.p2Rate"
                        required/>
 
                 <!-- Validation messages to be displayed on required and invalid. Type 'url' makes checks to a proper url format. -->
-                <p class="help-block" ng-show="issueForm.imageUrl.$error.required">Add Image URL.</p>
-                <p class="help-block" ng-show="issueForm.imageUrl.$invalid && issueForm.imageUrl.$dirty">Invalid Image URL.</p>
+                <p class="help-block" ng-show="issueForm.p2Rate.$error.required">Add Image URL.</p>
+                <p class="help-block" ng-show="issueForm.p2Rate.$invalid && issueForm.p2Rate.$dirty">Invalid Image URL.</p>
             </div>
 
-            <div class="avatar" ng-if="issue.imageUrl">
-                <img ng-src="{{issue.imageUrl}}" width="400" height="250"/>
-            </div>
+            <!-- <div class="avatar" ng-if="issue.imageUrl">
+                <img ng-src="{{issue.p1Rate}}" width="400" height="250"/>
+            </div> -->
 
             <!-- Form buttons. The 'Save' button is only enabled when the form is valid. -->
             <div class="buttons">

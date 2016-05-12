@@ -18,8 +18,8 @@ public class Issue implements Serializable {
     //@SequenceGenerator(name = "ID", sequenceName = "ID")
     private Long id;
 
-    @Column(name = "NAME")
-    private String name;
+    @Column(name = "ISSUENUM")
+    private String issueNum;
 
     @Column(name = "P1RATE", precision = 7, scale = 5)
     private BigDecimal p1Rate;
@@ -35,12 +35,12 @@ public class Issue implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getIssueNum() {
+        return issueNum;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setIssueNum(String issueNum) {
+        this.issueNum = issueNum;
     }
 
     public BigDecimal getP1Rate() {
