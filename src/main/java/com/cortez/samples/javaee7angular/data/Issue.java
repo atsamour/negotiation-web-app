@@ -11,6 +11,8 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "ISSUE")
+@NamedQueries({
+    @NamedQuery(name = "Issue.findAll", query = "SELECT m FROM Issue m")})
 public class Issue implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +28,17 @@ public class Issue implements Serializable {
 
     @Column(name = "P2RATE", precision = 7, scale = 5)
     private BigDecimal p2Rate;
+    
+    @Column(name = "BELONGS", columnDefinition="smallint(1) default '0'")
+    private short belongs;
+
+    public short getBelongs() {
+        return belongs;
+    }
+
+    public void setBelongs(short belongs) {
+        this.belongs = belongs;
+    }
 
     public Long getId() {
         return id;
@@ -59,6 +72,15 @@ public class Issue implements Serializable {
         this.p2Rate = p2Rate;
     }
     
+    public double getMrkDiff() { 
+        if( p1Rate.doubleValue()>p2Rate.doubleValue() ) return p1Rate.doubleValue()-p2Rate.doubleValue();
+	else return p2Rate.doubleValue()-p1Rate.doubleValue(); 
+    }
+    
+    public void setWinningParty() { 
+        if( p1Rate.doubleValue()>p2Rate.doubleValue() ) belongs=1; 
+        else belongs=2;
+    }
 
     @Override
     public int hashCode() {

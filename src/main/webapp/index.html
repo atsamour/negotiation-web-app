@@ -2,7 +2,7 @@
 <!-- Declares the root element that allows behaviour to be modified through Angular custom HTML tags. -->
 <html ng-app="issues">
 <head>
-    <title>javaee7-angular</title>
+    <title>Negotiation Application</title>
 
     <!-- build:css css/third-party.css -->
     <!-- bower:css -->
@@ -32,7 +32,7 @@
 
 <body>
 
-<h1>Java EE - Angular Application</h1>
+<h1>Negotiation Application</h1>
 
 <br/>
 
@@ -82,33 +82,31 @@
 
                 <input id="issueNum" name="issueNum" type="text" class="form-control" maxlength="50"
                        ng-model="issue.issueNum"
-                       required ng-minlength="2" ng-maxlength="50"/>
+                       required ng-maxlength="50"/>
 
                 <!-- Validation messages to be displayed on required, minlength and maxlength -->
-                <p class="help-block" ng-show="issueForm.issueNum.$error.required">Add Name.</p>
-                <p class="help-block" ng-show="issueForm.issueNum.$error.minlength">Name must be at least 2 characters long.</p>
+                <p class="help-block" ng-show="issueForm.issueNum.$error.required">Add issue number. Seperate childissue with a '.'.</p>
                 <p class="help-block" ng-show="issueForm.issueNum.$error.maxlength">Name cannot be longer than 50 characters.</p>
             </div>
 
             <!-- Display an error if the input is invalid and is dirty (only when someone changes the value) -->
-            <div class="form-group" ng-class="{'has-error' : issueForm.description.$invalid && issueForm.description.$dirty}">
-                <label for="p1Rate">p1Rate :</label>
+            <div class="form-group" ng-class="{'has-error' : issueForm.p1Rate.$invalid && issueForm.p1Rate.$dirty}">
+                <label for="p1Rate">Party 1 Rate:</label>
                 <!-- Display a check when the field is valid and was modified -->
-                <span ng-class="{'glyphicon glyphicon-ok' : issueForm.description.$valid && issueForm.description.$dirty}"></span>
+                <span ng-class="{'glyphicon glyphicon-ok' : issueForm.p1Rate.$valid && issueForm.p1Rate.$dirty}"></span>
 
-                <input id="p1Rate" name="p1Rate" type="text" class="form-control" maxlength="100"
+                <input id="p1Rate" name="p1Rate" type="text" class="form-control" maxlength="500"
                        ng-model="issue.p1Rate"
-                       required ng-minlength="1" ng-maxlength="100"/>
+                       required/>
 
-                <!-- Validation messages to be displayed on required, minlength and maxlength -->
-                <p class="help-block" ng-show="issueForm.p1Rate.$error.required">Add Description.</p>
-                <p class="help-block" ng-show="issueForm.p1Rate.$error.minlength">Description must be at least 1 characters long.</p>
-                <p class="help-block" ng-show="issueForm.p1Rate.$error.maxlength">Description cannot be longer than 100 characters.</p>
+                <!-- Validation messages to be displayed on required and invalid. Type 'url' makes checks to a proper url format. -->
+                <p class="help-block" ng-show="issueForm.p2Rate.$error.required">Add Image URL.</p>
+                <p class="help-block" ng-show="issueForm.p2Rate.$invalid && issueForm.p2Rate.$dirty">Invalid Image URL.</p>
             </div>
 
             <!-- Display an error if the input is invalid and is dirty (only when someone changes the value) -->
             <div class="form-group" ng-class="{'has-error' : issueForm.p2Rate.$invalid && issueForm.p2Rate.$dirty}">
-                <label for="p2Rate">p2Rate:</label>
+                <label for="p2Rate">Party 2 Rate:</label>
                 <!-- Display a check when the field is valid and was modified -->
                 <span ng-class="{'glyphicon glyphicon-ok' : issueForm.p2Rate.$valid && issueForm.p2Rate.$dirty}"></span>
 

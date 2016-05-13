@@ -23,6 +23,8 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class IssueResource extends Application {
+    
+    
     @PersistenceContext
     private EntityManager entityManager;
 
