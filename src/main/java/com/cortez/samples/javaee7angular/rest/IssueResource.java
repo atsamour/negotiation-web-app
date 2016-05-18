@@ -1,6 +1,7 @@
 package com.cortez.samples.javaee7angular.rest;
 
 import com.cortez.samples.javaee7angular.data.Issue;
+import com.cortez.samples.javaee7angular.negotiation.Negotiation;
 import com.cortez.samples.javaee7angular.pagination.PaginatedListWrapper;
 
 import javax.ejb.Stateless;
@@ -11,6 +12,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import javax.ejb.EJB;
 
 /**
  * REST Service to expose the data to display in the UI grid.
@@ -27,6 +29,9 @@ public class IssueResource extends Application {
     
     @PersistenceContext
     private EntityManager entityManager;
+    
+    @EJB
+    private Negotiation neg;
 
     private Integer countIssues() {
         Query query = entityManager.createQuery("SELECT COUNT(p.id) FROM Issue p");
@@ -74,8 +79,12 @@ public class IssueResource extends Application {
     @GET
     @Path("{id}")
     public Issue getIssue(@PathParam("id") Long id) {
+        if (id == -1){
+            neg.performNegotiation();
+        }
         return entityManager.find(Issue.class, id);
     }
+        
 
     @POST
     public Issue saveIssue(Issue issue) {

@@ -126,11 +126,7 @@ app.controller('issuesFormController', function ($scope, $rootScope, issueServic
     
     // Clears the form. Either by clicking the 'Clear' button in the form, or when a successfull save is performed.
     $scope.resolve = function () {
-        $scope.issue = null;
-        // Resets the form validation state.
-        $scope.issueForm.$setPristine();
-        // Broadcast the event to also clear the grid selection.
-        $rootScope.$broadcast('clear');
+        issueService.get({id: -1});
     };
 });
 

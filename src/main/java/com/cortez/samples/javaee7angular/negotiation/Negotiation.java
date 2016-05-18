@@ -26,6 +26,15 @@ public class Negotiation {
     @PersistenceContext(unitName = "myPU")
     private EntityManager em;
     
+    public String performNegotiation() {
+        List<Issue> issuesList = getAllIssues();
+        String output = CalculateNormRates(issuesList);
+        output += resolveIssues(issuesList);
+        
+        
+        System.out.println("output: \n"+output);
+        return output;
+    }
     
     public List<Issue> getAllIssues() {
         Query query = em.createNamedQuery("Issue.findAll");
@@ -64,12 +73,14 @@ public class Negotiation {
             calcTextBox=calcTextBox+"\r\nNormalized rates for Issue "+issue.getIssueNum()+" : "+
                     issue.getP1Rate()+",   "+issue.getP2Rate()+"\r\n";
         }
+        //System.out.println("CalculateNormRates: \n"+calcTextBox);
 	return calcTextBox;
     }
     
-    private: void resolveIssues(List<Issue> issues) {
+    private String resolveIssues(List<Issue> issues) {
 	//ofstream outResultFile( "result.txt", ios::app );	
 
+        String tmptextbox="";
 	//At each iteration an Issue will be Resolved
 	for (int genIndex=0; genIndex < issues.size(); genIndex++)
 	{
@@ -90,25 +101,26 @@ public class Negotiation {
             issues.get(maxDiffIssueIndex).setWinningParty(); //This Issue has just been resolved
 
 
-            String tmptextbox="";
             tmptextbox = tmptextbox+"\r\nIssue "+issues.get(maxDiffIssueIndex).getIssueNum()+
-                    " won by party "+issues.get(maxDiffIssueIndex).getParty()+"\r\n";
+                    " won by party "+issues.get(maxDiffIssueIndex).getBelongs()+"\r\n";
             //outResultFile<<"\nIssue "<<issues[maxDiffIssueIndex].getIssueNum()<<
             //	" won by party "<<issues[maxDiffIssueIndex].getParty()<<endl;
             //Calculating new Rates for other Issues after a Resolvement
+            
+            //System.out.println("resolving: "+tmptextbox);
             for (Issue issue : issues) {
                 if (issue.getBelongs()!=0) {//Does not have to Calculate new Rates for a resolved Issue
                     continue;
                 }
-                IssueClass* ptrtmpIssuemaxDiffIssueIndex = reinterpret_cast<IssueClass*> (issues[maxDiffIssueIndex].ToPointer());;
-
-                String tmpstringtextbox = ptrtmpIssue->CalculateNewRates (	ptrtmpIssuemaxDiffIssueIndex->getWiningPartyRate(),
-                        ptrtmpIssuemaxDiffIssueIndex->getLoosingPartyRate(),
-                        ptrtmpIssuemaxDiffIssueIndex->getParty()				);
-                String tmptextbox+= tmpstringtextbox;
+                String tmpstringtextbox = issue.CalculateNewRates (	issues.get(maxDiffIssueIndex).getWiningPartyRate(),
+                        issues.get(maxDiffIssueIndex).getLoosingPartyRate(),
+                        issues.get(maxDiffIssueIndex).getBelongs());
+                tmptextbox+= tmpstringtextbox;
             }
 	}// end of for( genIndex
-	
+        
+            //System.out.println("----FINAL resolved: \n"+tmptextbox);
+	return tmptextbox;
     }
     
 }
